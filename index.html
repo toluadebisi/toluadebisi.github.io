@@ -3,24 +3,27 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Tolu Adebisi — AI Product Builder</title>
+<title>Tolu Adebisi — AI Strategy & Integration Architect</title>
 <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet">
 <style>
+  /* --- RESET & VARIABLES --- */
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
   :root {
     --bg: #0a0a0f;
     --bg2: #111118;
     --bg3: #1a1a24;
-    --border: rgba(255,255,255,0.07);
-    --border2: rgba(255,255,255,0.13);
+    --border: rgba(255, 255, 255, 0.08);
+    --border-hover: rgba(255, 255, 255, 0.16);
     --text: #f0eff8;
     --muted: #8887a0;
     --accent1: #7c6ef5;
+    --accent1-glow: rgba(124, 110, 245, 0.2);
     --accent2: #4ecba0;
     --accent3: #f06a4d;
     --font-head: 'Syne', sans-serif;
     --font-body: 'DM Sans', sans-serif;
+    --container-width: 1200px;
   }
 
   html { scroll-behavior: smooth; }
@@ -32,70 +35,97 @@
     font-size: 16px;
     line-height: 1.7;
     -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    overflow-x: hidden;
   }
 
   a { color: inherit; text-decoration: none; }
+  
+  .container {
+    max-width: var(--container-width);
+    margin: 0 auto;
+    padding: 0 3rem;
+  }
 
-  /* NAV */
-  nav {
+  /* --- NAVIGATION --- */
+  header {
     position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    background: rgba(10, 10, 15, 0.75);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border-bottom: 1px solid var(--border);
+  }
+  nav {
     display: flex; align-items: center; justify-content: space-between;
-    padding: 1.2rem 3rem;
-    background: rgba(10,10,15,0.85);
-    backdrop-filter: blur(12px);
-    border-bottom: 0.5px solid var(--border);
+    padding: 1rem 3rem;
+    max-width: var(--container-width);
+    margin: 0 auto;
   }
   .nav-logo {
     font-family: var(--font-head);
     font-weight: 800;
-    font-size: 1.1rem;
+    font-size: 1.25rem;
     letter-spacing: -0.02em;
+    color: var(--text);
   }
   .nav-logo span { color: var(--accent1); }
-  .nav-links { display: flex; gap: 2rem; }
+  .nav-links { display: flex; gap: 2.5rem; }
   .nav-links a {
     font-size: 0.875rem;
     color: var(--muted);
-    transition: color 0.2s;
+    transition: color 0.3s ease;
     font-weight: 500;
   }
   .nav-links a:hover { color: var(--text); }
   .nav-cta {
     background: var(--accent1);
     color: #fff;
-    padding: 0.5rem 1.25rem;
+    padding: 0.6rem 1.5rem;
     border-radius: 100px;
     font-size: 0.875rem;
-    font-weight: 500;
-    transition: opacity 0.2s;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 14px rgba(124, 110, 245, 0.2);
   }
-  .nav-cta:hover { opacity: 0.85; }
+  .nav-cta:hover { 
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(124, 110, 245, 0.4); 
+  }
 
-  /* HERO */
+  /* --- HERO SECTION --- */
   .hero {
     min-height: 100vh;
     display: flex; flex-direction: column; justify-content: center;
-    padding: 8rem 3rem 5rem;
     position: relative;
-    overflow: hidden;
+    padding-top: 6rem;
   }
   .hero-glow {
     position: absolute; top: 10%; left: 50%; transform: translateX(-50%);
     width: 800px; height: 500px;
-    background: radial-gradient(ellipse, rgba(124,110,245,0.12) 0%, transparent 70%);
+    background: radial-gradient(ellipse, rgba(124, 110, 245, 0.15) 0%, transparent 70%);
     pointer-events: none;
+    animation: pulseGlow 8s ease-in-out infinite alternate;
+  }
+  @keyframes pulseGlow {
+    0% { opacity: 0.7; transform: translateX(-50%) scale(0.95); }
+    100% { opacity: 1; transform: translateX(-50%) scale(1.05); }
+  }
+  .hero-content {
+    position: relative;
+    z-index: 10;
   }
   .hero-tag {
     display: inline-flex; align-items: center; gap: 8px;
-    background: rgba(124,110,245,0.1);
-    border: 0.5px solid rgba(124,110,245,0.3);
+    background: rgba(124, 110, 245, 0.1);
+    border: 1px solid rgba(124, 110, 245, 0.2);
     border-radius: 100px;
-    padding: 0.35rem 1rem;
+    padding: 0.4rem 1.25rem;
     font-size: 0.8rem;
     color: #a89ef7;
-    font-weight: 500;
+    font-weight: 600;
     margin-bottom: 2rem;
-    width: fit-content;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
   }
   .hero-tag::before {
     content: '';
@@ -103,10 +133,11 @@
     border-radius: 50%;
     background: #a89ef7;
     display: inline-block;
+    box-shadow: 0 0 8px #a89ef7;
   }
   .hero h1 {
     font-family: var(--font-head);
-    font-size: clamp(3rem, 7vw, 6rem);
+    font-size: clamp(3rem, 7vw, 5.5rem);
     font-weight: 800;
     line-height: 1.05;
     letter-spacing: -0.03em;
@@ -117,465 +148,1327 @@
   .hero-sub {
     font-size: 1.15rem;
     color: var(--muted);
-    max-width: 560px;
-    margin-bottom: 2.5rem;
-    font-weight: 300;
-    line-height: 1.75;
+    max-width: 650px;
+    margin-bottom: 3rem;
+    font-weight: 400;
+    line-height: 1.8;
   }
   .hero-sub strong { color: var(--text); font-weight: 500; }
+  
   .hero-actions { display: flex; gap: 1rem; flex-wrap: wrap; }
   .btn-primary {
     background: var(--accent1);
     color: #fff;
-    padding: 0.85rem 2rem;
+    padding: 0.9rem 2.25rem;
     border-radius: 100px;
-    font-weight: 500;
+    font-weight: 600;
     font-size: 0.95rem;
-    transition: transform 0.2s, opacity 0.2s;
-    display: inline-flex; align-items: center; gap: 8px;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(124, 110, 245, 0.25);
+    cursor: pointer;
   }
-  .btn-primary:hover { transform: translateY(-2px); opacity: 0.9; }
+  .btn-primary:hover { 
+    transform: translateY(-2px); 
+    box-shadow: 0 8px 25px rgba(124, 110, 245, 0.4); 
+  }
   .btn-secondary {
-    border: 0.5px solid var(--border2);
+    border: 1px solid var(--border-hover);
     color: var(--text);
-    padding: 0.85rem 2rem;
+    padding: 0.9rem 2.25rem;
     border-radius: 100px;
-    font-weight: 500;
+    font-weight: 600;
     font-size: 0.95rem;
-    background: transparent;
-    transition: border-color 0.2s, background 0.2s;
-    display: inline-flex; align-items: center; gap: 8px;
+    background: rgba(255,255,255,0.02);
+    transition: all 0.3s ease;
+    backdrop-filter: blur(5px);
+    cursor: pointer;
   }
-  .btn-secondary:hover { border-color: var(--accent1); background: rgba(124,110,245,0.05); }
+  .btn-secondary:hover { 
+    border-color: var(--accent1); 
+    background: rgba(124, 110, 245, 0.08); 
+  }
 
   .hero-stats {
-    display: flex; gap: 3rem;
-    margin-top: 4rem;
-    padding-top: 2rem;
-    border-top: 0.5px solid var(--border);
+    display: flex; gap: 4rem;
+    margin-top: 5rem;
+    padding-top: 2.5rem;
+    border-top: 1px solid var(--border);
   }
   .stat-num {
     font-family: var(--font-head);
-    font-size: 2rem;
+    font-size: 2.5rem;
     font-weight: 800;
     color: var(--text);
+    line-height: 1;
   }
   .stat-num span { color: var(--accent1); }
-  .stat-label { font-size: 0.8rem; color: var(--muted); font-weight: 400; margin-top: 2px; }
+  .stat-label { 
+    font-size: 0.85rem; 
+    color: var(--muted); 
+    font-weight: 500; 
+    margin-top: 0.5rem; 
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
 
-  /* SECTION SHARED */
-  section { padding: 5rem 3rem; }
+  /* --- SECTION SHARED --- */
+  section { padding: 7rem 0; }
   .section-label {
     font-size: 0.75rem;
-    font-weight: 600;
-    letter-spacing: 0.12em;
+    font-weight: 700;
+    letter-spacing: 0.15em;
     text-transform: uppercase;
     color: var(--accent1);
     margin-bottom: 1rem;
+    display: flex; align-items: center; gap: 10px;
+  }
+  .section-label::before {
+    content: ''; width: 20px; height: 1px; background: var(--accent1);
   }
   .section-title {
     font-family: var(--font-head);
-    font-size: clamp(1.75rem, 3vw, 2.5rem);
-    font-weight: 700;
+    font-size: clamp(2rem, 4vw, 3rem);
+    font-weight: 800;
     letter-spacing: -0.02em;
-    line-height: 1.2;
-    margin-bottom: 1rem;
+    line-height: 1.1;
+    margin-bottom: 1.25rem;
   }
   .section-sub {
     color: var(--muted);
-    font-size: 1rem;
-    max-width: 500px;
-    margin-bottom: 3rem;
-    font-weight: 300;
+    font-size: 1.1rem;
+    max-width: 600px;
+    margin-bottom: 4rem;
+    font-weight: 400;
   }
 
-  /* PROJECTS */
+  /* --- VERTICAL CATEGORY CARDS --- */
   .projects-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 1.25rem;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 1.5rem;
   }
-
   .project-card {
     background: var(--bg2);
-    border: 0.5px solid var(--border);
+    border: 1px solid var(--border);
     border-radius: 16px;
-    padding: 1.75rem;
-    transition: border-color 0.25s, transform 0.25s;
-    cursor: pointer;
+    padding: 2rem;
+    transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
     position: relative;
     overflow: hidden;
+    z-index: 1;
+    display: flex;
+    flex-direction: column;
   }
   .project-card::before {
     content: '';
     position: absolute; top: 0; left: 0; right: 0;
-    height: 2px;
+    height: 3px;
     opacity: 0;
     transition: opacity 0.3s;
+    z-index: 2;
   }
-  .project-card:hover { border-color: var(--border2); transform: translateY(-3px); }
+  .project-card:hover { 
+    border-color: var(--border-hover); 
+    transform: translateY(-3px);
+    box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+    background: var(--bg3);
+  }
   .project-card:hover::before { opacity: 1; }
+  
   .card-voice::before { background: linear-gradient(90deg, var(--accent1), #a89ef7); }
   .card-finora::before { background: linear-gradient(90deg, var(--accent2), #5fe0b8); }
   .card-snap::before { background: linear-gradient(90deg, var(--accent3), #f5a090); }
   .card-vocalize::before { background: linear-gradient(90deg, #f5c842, #e0a020); }
   .card-jobmatch::before { background: linear-gradient(90deg, #6ec6f5, #3a99d8); }
 
-  .card-icon {
-    width: 44px; height: 44px;
-    border-radius: 10px;
-    display: flex; align-items: center; justify-content: center;
-    margin-bottom: 1.25rem;
-    font-size: 1.25rem;
+  .card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 1.5rem;
   }
-  .icon-voice { background: rgba(124,110,245,0.15); }
-  .icon-finora { background: rgba(78,203,160,0.15); }
-  .icon-snap { background: rgba(240,106,77,0.15); }
-  .icon-vocalize { background: rgba(245,200,66,0.15); }
-  .icon-jobmatch { background: rgba(110,198,245,0.15); }
+  .card-icon {
+    width: 48px; height: 48px;
+    border-radius: 12px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1.5rem;
+  }
+  .icon-voice { background: rgba(124,110,245,0.1); border: 1px solid rgba(124,110,245,0.2); }
+  .icon-finora { background: rgba(78,203,160,0.1); border: 1px solid rgba(78,203,160,0.2); }
+  .icon-snap { background: rgba(240,106,77,0.1); border: 1px solid rgba(240,106,77,0.2); }
+  .icon-vocalize { background: rgba(245,200,66,0.1); border: 1px solid rgba(245,200,66,0.2); }
+  .icon-jobmatch { background: rgba(110,198,245,0.1); border: 1px solid rgba(110,198,245,0.2); }
 
   .card-badge {
     display: inline-block;
-    padding: 0.2rem 0.65rem;
+    padding: 0.25rem 0.7rem;
     border-radius: 100px;
-    font-size: 0.7rem;
-    font-weight: 500;
-    margin-bottom: 0.75rem;
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 0.02em;
   }
-  .badge-featured { background: rgba(124,110,245,0.15); color: #a89ef7; border: 0.5px solid rgba(124,110,245,0.25); }
-  .badge-saas { background: rgba(78,203,160,0.15); color: #4ecba0; border: 0.5px solid rgba(78,203,160,0.25); }
-  .badge-events { background: rgba(240,106,77,0.15); color: #f06a4d; border: 0.5px solid rgba(240,106,77,0.25); }
-  .badge-research { background: rgba(245,200,66,0.15); color: #c9a000; border: 0.5px solid rgba(245,200,66,0.25); }
-  .badge-ai { background: rgba(110,198,245,0.15); color: #6ec6f5; border: 0.5px solid rgba(110,198,245,0.25); }
+  .badge-featured { background: rgba(124,110,245,0.1); color: #a89ef7; border: 1px solid rgba(124,110,245,0.2); }
+  .badge-saas { background: rgba(78,203,160,0.1); color: #4ecba0; border: 1px solid rgba(78,203,160,0.2); }
+  .badge-events { background: rgba(240,106,77,0.1); color: #f06a4d; border: 1px solid rgba(240,106,77,0.2); }
+  .badge-research { background: rgba(245,200,66,0.1); color: #e6be31; border: 1px solid rgba(245,200,66,0.2); }
+  .badge-ai { background: rgba(110,198,245,0.1); color: #6ec6f5; border: 1px solid rgba(110,198,245,0.2); }
 
   .card-title {
     font-family: var(--font-head);
-    font-size: 1.15rem;
+    font-size: 1.3rem;
     font-weight: 700;
-    margin-bottom: 0.5rem;
+    margin-bottom: 0.75rem;
     letter-spacing: -0.01em;
+    color: var(--text);
   }
   .card-desc {
-    font-size: 0.875rem;
+    font-size: 0.95rem;
     color: var(--muted);
     line-height: 1.6;
-    margin-bottom: 1.25rem;
+    margin-bottom: 2rem;
+    flex-grow: 1;
   }
-  .card-tags {
-    display: flex; gap: 6px; flex-wrap: wrap;
-  }
-  .card-tag {
-    font-size: 0.7rem;
-    color: var(--muted);
-    border: 0.5px solid var(--border);
-    border-radius: 100px;
-    padding: 0.2rem 0.65rem;
-  }
-  .card-link {
-    display: inline-flex; align-items: center; gap: 5px;
-    font-size: 0.8rem;
-    color: var(--accent1);
-    margin-top: 1rem;
-    font-weight: 500;
-    transition: gap 0.2s;
-  }
-  .project-card:hover .card-link { gap: 8px; }
-
-  /* SKILLS */
-  .skills-section { background: var(--bg2); }
-  .skills-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-    gap: 1rem;
-  }
-  .skill-card {
-    background: var(--bg3);
-    border: 0.5px solid var(--border);
-    border-radius: 12px;
-    padding: 1.25rem 1.5rem;
-  }
-  .skill-icon { font-size: 1.5rem; margin-bottom: 0.75rem; }
-  .skill-title { font-family: var(--font-head); font-size: 0.95rem; font-weight: 700; margin-bottom: 0.35rem; }
-  .skill-desc { font-size: 0.8rem; color: var(--muted); line-height: 1.5; }
-
-  /* SERVICES */
-  .services-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-    gap: 1.25rem;
-  }
-  .service-card {
-    background: var(--bg2);
-    border: 0.5px solid var(--border);
-    border-radius: 16px;
-    padding: 2rem;
-    transition: border-color 0.2s;
-  }
-  .service-card:hover { border-color: var(--border2); }
-  .service-num {
-    font-family: var(--font-head);
-    font-size: 2.5rem;
-    font-weight: 800;
-    color: var(--border2);
-    margin-bottom: 1rem;
-    line-height: 1;
-  }
-  .service-title { font-family: var(--font-head); font-size: 1.1rem; font-weight: 700; margin-bottom: 0.5rem; }
-  .service-desc { font-size: 0.875rem; color: var(--muted); line-height: 1.65; margin-bottom: 1rem; }
-  .service-price { font-size: 0.85rem; color: var(--accent2); font-weight: 500; }
-
-  /* CTA */
-  .cta-section {
-    text-align: center;
-    background: linear-gradient(135deg, rgba(124,110,245,0.08) 0%, rgba(78,203,160,0.05) 100%);
-    border-top: 0.5px solid var(--border);
-    border-bottom: 0.5px solid var(--border);
-  }
-  .cta-section h2 {
-    font-family: var(--font-head);
-    font-size: clamp(2rem, 4vw, 3.5rem);
-    font-weight: 800;
-    letter-spacing: -0.03em;
-    max-width: 700px;
-    margin: 0 auto 1rem;
-  }
-  .cta-section p { color: var(--muted); max-width: 460px; margin: 0 auto 2.5rem; }
-  .cta-actions { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; }
-
-  /* FOOTER */
-  footer {
-    padding: 2rem 3rem;
-    border-top: 0.5px solid var(--border);
+  .card-footer {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    border-top: 1px solid var(--border);
+    padding-top: 1.5rem;
+    margin-top: auto;
+  }
+  .card-tags {
+    display: flex; gap: 8px; flex-wrap: wrap;
+  }
+  .card-tag {
+    font-size: 0.75rem;
+    color: var(--muted);
+    background: rgba(255,255,255,0.03);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 0.2rem 0.5rem;
+  }
+  .card-link {
+    display: inline-flex; align-items: center; gap: 6px;
+    font-size: 0.85rem;
+    color: var(--accent1);
+    font-weight: 600;
+    transition: gap 0.3s;
+    cursor: pointer;
+    background: none; border: none; padding: 0; font-family: inherit;
+  }
+  .project-card:hover .card-link { gap: 10px; }
+
+  /* --- SLEEK MODAL & ACCORDION SYSTEM --- */
+  .modal-overlay {
+    position: fixed; top: 0; left: 0; right: 0; bottom: 0;
+    background: rgba(0, 0, 0, 0.85);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    z-index: 1000;
+    display: flex; align-items: center; justify-content: center;
+    opacity: 0; pointer-events: none;
+    transition: opacity 0.3s ease;
+    padding: 1.5rem;
+  }
+  .modal-overlay.active {
+    opacity: 1; pointer-events: auto;
+  }
+  .modal-content {
+    background: var(--bg2);
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    width: 100%; max-width: 850px;
+    max-height: 90vh; overflow-y: auto;
+    position: relative;
+    transform: translateY(20px) scale(0.98);
+    transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+  }
+  .modal-overlay.active .modal-content {
+    transform: translateY(0) scale(1);
+  }
+  .modal-header {
+    padding: 2rem 2.5rem;
+    border-bottom: 1px solid var(--border);
+    position: sticky; top: 0;
+    background: rgba(17, 17, 24, 0.95);
+    backdrop-filter: blur(8px);
+    z-index: 10;
+  }
+  .modal-close {
+    position: absolute; top: 2rem; right: 2rem;
+    background: rgba(255,255,255,0.05);
+    border: 1px solid var(--border); color: var(--text);
+    width: 36px; height: 36px; border-radius: 50%;
+    cursor: pointer; display: flex; align-items: center; justify-content: center;
+    transition: all 0.2s;
+  }
+  .modal-close:hover { background: rgba(255,255,255,0.15); transform: scale(1.05); }
+  .modal-header h3 { font-family: var(--font-head); font-size: 1.75rem; margin-bottom: 0.5rem; color: var(--text); }
+  .modal-category { font-size: 0.8rem; color: var(--accent1); font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em; }
+  
+  .modal-body { padding: 2rem 2.5rem; }
+
+  /* Sub-card Accordion Styles */
+  .sub-card {
+    background: rgba(255,255,255,0.02);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    margin-bottom: 1.25rem;
+    overflow: hidden;
+    transition: all 0.3s ease;
+  }
+  .sub-card:hover { border-color: var(--border-hover); }
+  .sub-card.active { 
+    border-color: var(--accent1); 
+    background: var(--bg);
+    box-shadow: 0 8px 24px rgba(0,0,0,0.2);
+  }
+  .sub-card-header {
+    padding: 1.5rem;
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-family: var(--font-head);
+    font-weight: 700;
+    font-size: 1.15rem;
+    color: var(--text);
+    transition: background 0.3s;
+  }
+  .sub-card-header:hover { background: rgba(255,255,255,0.03); }
+  .sub-card-header::after {
+    content: '+';
+    font-size: 1.5rem;
+    font-weight: 400;
+    color: var(--accent1);
+    transition: transform 0.3s ease;
+  }
+  .sub-card.active .sub-card-header::after { transform: rotate(45deg); }
+  
+  .sub-card-content {
+    max-height: 0;
+    opacity: 0;
+    overflow: hidden;
+    transition: max-height 0.5s ease, opacity 0.4s ease, padding 0.3s ease;
+    padding: 0 1.5rem;
+  }
+  .sub-card.active .sub-card-content {
+    max-height: 1200px;
+    opacity: 1;
+    padding: 0 1.5rem 1.5rem;
+  }
+
+  .sub-card-desc {
+    font-size: 0.95rem;
+    color: var(--muted);
+    line-height: 1.7;
+    margin-bottom: 1.25rem;
+  }
+  .sub-card-desc strong { color: var(--text); font-weight: 600; }
+  
+  .spec-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+    margin-top: 1.5rem;
+    border-top: 1px solid var(--border);
+    padding-top: 1.5rem;
+  }
+  .spec-box {
+    background: rgba(255,255,255,0.03);
+    padding: 1.25rem;
+    border-radius: 10px;
+    border: 1px solid rgba(255,255,255,0.05);
+  }
+  .spec-box h5 {
+    color: var(--accent1);
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin-bottom: 0.75rem;
+    display: flex; align-items: center; gap: 6px;
+  }
+  .spec-box p { font-size: 0.85rem; color: var(--text); line-height: 1.6; margin: 0; }
+
+  /* --- TECH STACK / ECOSYSTEM SECTION --- */
+  .ecosystem-section { background: var(--bg2); border-top: 1px solid var(--border); }
+  .ecosystem-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 1.5rem;
+    margin-top: 3rem;
+  }
+  .ecosystem-card {
+    background: rgba(255,255,255,0.01);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 2rem;
+    transition: border-color 0.3s, background 0.3s;
+  }
+  .ecosystem-card:hover { border-color: var(--accent1); background: rgba(255,255,255,0.03); }
+  .ecosystem-card h3 {
+    font-family: var(--font-head);
+    font-size: 1.1rem;
+    color: var(--text);
+    margin-bottom: 1.5rem;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid var(--border);
+    display: flex; align-items: center; gap: 8px;
+  }
+  .tech-pills {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.6rem;
+  }
+  .tech-pill {
+    background: rgba(255,255,255,0.03);
+    border: 1px solid var(--border);
+    border-radius: 100px;
+    padding: 0.35rem 0.85rem;
     font-size: 0.8rem;
     color: var(--muted);
-    flex-wrap: wrap;
-    gap: 1rem;
+    font-weight: 500;
+    transition: all 0.2s;
   }
-  .footer-links { display: flex; gap: 1.5rem; }
-  .footer-links a { color: var(--muted); transition: color 0.2s; }
+  .tech-pill:hover {
+    color: var(--text);
+    border-color: var(--accent1);
+    background: rgba(124, 110, 245, 0.08);
+  }
+
+  /* --- SERVICES --- */
+  .services-section { background: var(--bg); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
+  .services-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 1.5rem;
+  }
+  .service-card {
+    background: var(--bg2);
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    padding: 2.5rem;
+    transition: border-color 0.3s, transform 0.3s;
+  }
+  .service-card:hover { border-color: var(--accent1); transform: translateY(-3px); }
+  .service-num {
+    font-family: var(--font-head);
+    font-size: 3rem;
+    font-weight: 800;
+    color: transparent;
+    -webkit-text-stroke: 1px var(--border-hover);
+    margin-bottom: 1.5rem;
+    line-height: 1;
+    transition: color 0.3s;
+  }
+  .service-card:hover .service-num { color: var(--accent1); -webkit-text-stroke: 0; }
+  .service-title { font-family: var(--font-head); font-size: 1.25rem; font-weight: 700; margin-bottom: 1rem; color: var(--text); }
+  .service-desc { font-size: 0.95rem; color: var(--muted); line-height: 1.7; margin-bottom: 1.5rem; }
+  .service-price { font-size: 0.85rem; color: var(--accent2); font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em; }
+
+  /* --- SKILLS --- */
+  .skills-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 1.25rem;
+  }
+  .skill-card {
+    background: rgba(255,255,255,0.02);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 2rem;
+    display: flex; align-items: flex-start; gap: 1.25rem;
+    transition: background 0.3s;
+  }
+  .skill-card:hover { background: rgba(255,255,255,0.04); }
+  .skill-icon { font-size: 1.75rem; background: var(--bg2); border-radius: 12px; width: 48px; height: 48px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; border: 1px solid var(--border); }
+  .skill-content h3 { font-family: var(--font-head); font-size: 1.1rem; font-weight: 700; margin-bottom: 0.4rem; color: var(--text); }
+  .skill-content p { font-size: 0.9rem; color: var(--muted); line-height: 1.6; }
+
+  /* --- CTA --- */
+  .cta-section {
+    text-align: center;
+    background: linear-gradient(135deg, rgba(124, 110, 245, 0.05) 0%, rgba(78, 203, 160, 0.03) 100%);
+    border-top: 1px solid var(--border);
+    padding: 8rem 0;
+  }
+  .cta-section .section-label { justify-content: center; margin-bottom: 1.5rem; }
+  .cta-section .section-label::before { display: none; }
+  .cta-section h2 {
+    font-family: var(--font-head);
+    font-size: clamp(2.5rem, 5vw, 4rem);
+    font-weight: 800;
+    letter-spacing: -0.03em;
+    max-width: 800px;
+    margin: 0 auto 1.5rem;
+    line-height: 1.1;
+  }
+  .cta-section p { color: var(--muted); font-size: 1.1rem; max-width: 500px; margin: 0 auto 3rem; }
+  .cta-actions { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; }
+
+  /* --- FOOTER --- */
+  footer {
+    border-top: 1px solid var(--border);
+    background: var(--bg);
+  }
+  .footer-inner {
+    max-width: var(--container-width);
+    margin: 0 auto;
+    padding: 3rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 0.85rem;
+    color: var(--muted);
+    flex-wrap: wrap;
+    gap: 1.5rem;
+  }
+  .footer-links { display: flex; gap: 2rem; }
+  .footer-links a { color: var(--muted); transition: color 0.3s; font-weight: 500; }
   .footer-links a:hover { color: var(--text); }
 
-  @media (max-width: 640px) {
-    nav { padding: 1rem 1.5rem; }
+  /* --- RESPONSIVE --- */
+  @media (max-width: 768px) {
+    nav { padding: 1.25rem 1.5rem; }
     .nav-links { display: none; }
-    .hero, section { padding-left: 1.5rem; padding-right: 1.5rem; }
-    .hero-stats { gap: 1.5rem; flex-wrap: wrap; }
-    footer { flex-direction: column; text-align: center; }
+    .container { padding: 0 1.5rem; }
+    .hero-stats { gap: 2rem; flex-wrap: wrap; }
+    .hero-stats > div { width: 40%; }
+    .footer-inner { flex-direction: column; text-align: center; justify-content: center; }
+    .spec-grid { grid-template-columns: 1fr; gap: 0.75rem; }
+    .modal-content { max-width: 95%; }
   }
 
-  /* ANIMATIONS */
+  /* --- SCROLL ANIMATIONS --- */
+  .reveal {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  .reveal.active {
+    opacity: 1;
+    transform: translateY(0);
+  }
   @keyframes fadeUp {
-    from { opacity: 0; transform: translateY(24px); }
+    from { opacity: 0; transform: translateY(20px); }
     to { opacity: 1; transform: translateY(0); }
   }
-  .hero-tag { animation: fadeUp 0.6s ease both; }
-  .hero h1 { animation: fadeUp 0.6s 0.1s ease both; }
-  .hero-sub { animation: fadeUp 0.6s 0.2s ease both; }
-  .hero-actions { animation: fadeUp 0.6s 0.3s ease both; }
-  .hero-stats { animation: fadeUp 0.6s 0.4s ease both; }
+  .hero-tag { animation: fadeUp 0.8s ease both; }
+  .hero h1 { animation: fadeUp 0.8s 0.1s ease both; }
+  .hero-sub { animation: fadeUp 0.8s 0.2s ease both; }
+  .hero-actions { animation: fadeUp 0.8s 0.3s ease both; }
+  .hero-stats { animation: fadeUp 0.8s 0.4s ease both; }
 </style>
 </head>
 <body>
 
-<nav>
-  <div class="nav-logo">Tolu<span>.</span></div>
-  <div class="nav-links">
-    <a href="#projects">Projects</a>
-    <a href="#services">Services</a>
-    <a href="#skills">Skills</a>
-    <a href="#contact">Contact</a>
-  </div>
-  <a href="mailto:tolu.adebisi@gmail.com" class="nav-cta">Work With Me</a>
-</nav>
-
-<section class="hero">
-  <div class="hero-glow"></div>
-  <div class="hero-tag">Available for new projects</div>
-  <h1>AI Product Builder<br><span class="line2">& Operator.</span></h1>
-  <p class="hero-sub">I design and ship <strong>complex AI platforms</strong> — from voice productivity tools and fintech apps to event systems and survey platforms. Marketing + ops intuition meets hands-on AI development.</p>
-  <div class="hero-actions">
-    <a href="#projects" class="btn-primary">View My Work →</a>
-    <a href="#services" class="btn-secondary">Hire Me</a>
-  </div>
-  <div class="hero-stats">
-    <div>
-      <div class="stat-num">10<span>+</span></div>
-      <div class="stat-label">AI platforms shipped</div>
+<header>
+  <nav>
+    <div class="nav-logo">Tolu<span>.</span></div>
+    <div class="nav-links">
+      <a href="#case-studies">Vertical Suites</a>
+      <a href="#ecosystem">Tech Stack</a>
+      <a href="#services">Consulting</a>
+      <a href="#skills">Expertise</a>
     </div>
-    <div>
-      <div class="stat-num">5<span>+</span></div>
-      <div class="stat-label">industries covered</div>
-    </div>
-    <div>
-      <div class="stat-num">6<span>mo</span></div>
-      <div class="stat-label">from zero to studio</div>
-    </div>
-  </div>
-</section>
+    <a href="https://calendly.com/tolu-t-adebisi/ai-integration-consultation" target="_blank" class="nav-cta">Schedule Strategy Call</a>
+  </nav>
+</header>
 
-<section id="projects">
-  <div class="section-label">Portfolio</div>
-  <h2 class="section-title">Platforms I've Built</h2>
-  <p class="section-sub">Production-grade AI applications across productivity, fintech, events, research, and hiring.</p>
-
-  <div class="projects-grid">
-
-    <div class="project-card card-voice">
-      <div class="card-icon icon-voice">🎙️</div>
-      <div class="card-badge badge-featured">Featured</div>
-      <div class="card-title">Voicify</div>
-      <p class="card-desc">Voice-first daily organizer. Record, transcribe, and summarize voice notes — with automatic task extraction, event detection, and communication automation.</p>
-      <div class="card-tags">
-        <span class="card-tag">Voice AI</span>
-        <span class="card-tag">Productivity</span>
-        <span class="card-tag">NLP</span>
+<main>
+  <section class="hero">
+    <div class="hero-glow"></div>
+    <div class="container hero-content">
+      <div class="hero-tag">Accepting Q3 Consulting Engagements</div>
+      <h1>AI Strategy &<br><span class="line2">Integration Architect.</span></h1>
+      <p class="hero-sub">I guide organizations through <strong>AI adoption and process optimization</strong>. Utilizing a vast network of foundation models and infrastructure APIs, I engineer secure pipelines that turn emerging AI capabilities into measurable business ROI.</p>
+      <div class="hero-actions">
+        <a href="#case-studies" class="btn-primary">Explore Vertical Suites →</a>
+        <a href="https://calendly.com/tolu-t-adebisi/ai-integration-consultation" target="_blank" class="btn-secondary">Discuss Your Infrastructure</a>
       </div>
-      <a href="https://myvoicify.app" target="_blank" class="card-link">Visit app →</a>
-    </div>
-
-    <div class="project-card card-finora">
-      <div class="card-icon icon-finora">💹</div>
-      <div class="card-badge badge-saas">Fintech SaaS</div>
-      <div class="card-title">FinoraAI</div>
-      <p class="card-desc">Multi-tenant AI accounting platform for SMEs. Manage finances, track expenses, monitor revenues, and get AI-driven growth insights — all in one dashboard.</p>
-      <div class="card-tags">
-        <span class="card-tag">Multi-tenant</span>
-        <span class="card-tag">Fintech</span>
-        <span class="card-tag">SME</span>
+      <div class="hero-stats">
+        <div>
+          <div class="stat-num">10<span>+</span></div>
+          <div class="stat-label">Enterprise AI<br>Architectures Shipped</div>
+        </div>
+        <div>
+          <div class="stat-num">30<span>+</span></div>
+          <div class="stat-label">API Pipelines<br>& Integrations</div>
+        </div>
+        <div>
+          <div class="stat-num">100<span>%</span></div>
+          <div class="stat-label">Focus on<br>Measurable ROI</div>
+        </div>
       </div>
-      <a href="https://finoraai.base44.app" target="_blank" class="card-link">Visit app →</a>
     </div>
+  </section>
 
-    <div class="project-card card-snap">
-      <div class="card-icon icon-snap">📸</div>
-      <div class="card-badge badge-events">Events Tech</div>
-      <div class="card-title">SnapSync</div>
-      <p class="card-desc">All-in-one AI photobooth and magnet production platform. Streamlines event media capture, instant guest engagement, and physical print fulfillment end-to-end.</p>
-      <div class="card-tags">
-        <span class="card-tag">Events</span>
-        <span class="card-tag">AI Media</span>
-        <span class="card-tag">Fulfillment</span>
+  <section id="case-studies">
+    <div class="container">
+      <div class="section-label reveal">Proof of Capability</div>
+      <h2 class="section-title reveal">Applied AI Suites by Sector</h2>
+      <p class="section-sub reveal">Explore the dedicated suites of intelligent platforms I've architected to solve specific, high-friction operational pain points across key industries.</p>
+
+      <div class="projects-grid">
+        <!-- VERTICAL 1: Workflow -->
+        <article class="project-card card-voice reveal">
+          <div class="card-header">
+            <div class="card-icon icon-voice">💼</div>
+            <div class="card-badge badge-featured">4 Architectures</div>
+          </div>
+          <h3 class="card-title">Enterprise Workflow & Productivity</h3>
+          <p class="card-desc">Intelligent NLP pipelines and voice-first interfaces converting unstructured audio data into automated operational task deployment.</p>
+          <div class="card-footer">
+            <div class="card-tags">
+              <span class="card-tag">AssemblyAI</span>
+              <span class="card-tag">Recall.ai</span>
+            </div>
+            <button class="card-link" onclick="openModal('modal-productivity')">View Architectures →</button>
+          </div>
+        </article>
+
+        <!-- VERTICAL 2: FinTech -->
+        <article class="project-card card-finora reveal">
+          <div class="card-header">
+            <div class="card-icon icon-finora">💹</div>
+            <div class="card-badge badge-saas">3 Architectures</div>
+          </div>
+          <h3 class="card-title">FinTech & Predictive Analytics</h3>
+          <p class="card-desc">Multi-tenant financial platforms utilizing advanced ML models for real-time market analysis, predictive modeling, and automated reconciliation.</p>
+          <div class="card-footer">
+            <div class="card-tags">
+              <span class="card-tag">Firebase</span>
+              <span class="card-tag">Stripe Billing</span>
+            </div>
+            <button class="card-link" onclick="openModal('modal-fintech')">View Architectures →</button>
+          </div>
+        </article>
+
+        <!-- VERTICAL 3: Logistics -->
+        <article class="project-card card-snap reveal">
+          <div class="card-header">
+            <div class="card-icon icon-snap">📦</div>
+            <div class="card-badge badge-events">3 Architectures</div>
+          </div>
+          <h3 class="card-title">Experiential Tech & Logistics</h3>
+          <p class="card-desc">Bridging edge hardware with cloud operations. End-to-end ingestion engines utilizing AI for instant physical fulfillment and vendor tracking.</p>
+          <div class="card-footer">
+            <div class="card-tags">
+              <span class="card-tag">Cloudflare R2</span>
+              <span class="card-tag">Runway</span>
+            </div>
+            <button class="card-link" onclick="openModal('modal-experiential')">View Architectures →</button>
+          </div>
+        </article>
+
+        <!-- VERTICAL 4: Content & Media -->
+        <article class="project-card card-vocalize reveal">
+          <div class="card-header">
+            <div class="card-icon icon-vocalize">🎬</div>
+            <div class="card-badge badge-research">4 Architectures</div>
+          </div>
+          <h3 class="card-title">Content AI & Creator Economy</h3>
+          <p class="card-desc">High-performance generation engines that automate 90-day social strategies, video production workflows, and deep-audio data extraction.</p>
+          <div class="card-footer">
+            <div class="card-tags">
+              <span class="card-tag">Creatomate</span>
+              <span class="card-tag">ElevenLabs</span>
+            </div>
+            <button class="card-link" onclick="openModal('modal-media')">View Architectures →</button>
+          </div>
+        </article>
+
+        <!-- VERTICAL 5: HR Tech -->
+        <article class="project-card card-jobmatch reveal">
+          <div class="card-header">
+            <div class="card-icon icon-jobmatch">👥</div>
+            <div class="card-badge badge-ai">2 Architectures</div>
+          </div>
+          <h3 class="card-title">HR Tech & Human Capital</h3>
+          <p class="card-desc">Algorithmic document auditing protocols designed to align talent profiles against strict corporate Applicant Tracking Systems.</p>
+          <div class="card-footer">
+            <div class="card-tags">
+              <span class="card-tag">Apify Scraping</span>
+              <span class="card-tag">Inworld API</span>
+            </div>
+            <button class="card-link" onclick="openModal('modal-hr')">View Architectures →</button>
+          </div>
+        </article>
+
+        <!-- VERTICAL 6: EdTech & Consumer AI -->
+        <article class="project-card card-jobmatch reveal" style="--accent1: #9b51e0;">
+          <div class="card-header">
+            <div class="card-icon" style="background: rgba(155,81,224,0.1); border: 1px solid rgba(155,81,224,0.2);">🎓</div>
+            <div class="card-badge" style="background: rgba(155,81,224,0.1); color: #c48cf5; border: 1px solid rgba(155,81,224,0.2);">3 Architectures</div>
+          </div>
+          <h3 class="card-title">EdTech & Consumer AI</h3>
+          <p class="card-desc">Culturally-aware wellness companions and gamified learning platforms driving high user retention and personalized experiences.</p>
+          <div class="card-footer">
+            <div class="card-tags">
+              <span class="card-tag">RAG Architecture</span>
+              <span class="card-tag">WebSockets</span>
+            </div>
+            <button class="card-link" onclick="openModal('modal-edtech')" style="color: #c48cf5;">View Architectures →</button>
+          </div>
+        </article>
       </div>
-      <a href="#" class="card-link">View project →</a>
     </div>
+  </section>
 
-    <div class="project-card card-vocalize">
-      <div class="card-icon icon-vocalize">📊</div>
-      <div class="card-badge badge-research">Voice Research</div>
-      <div class="card-title">Vocalize Surveys</div>
-      <p class="card-desc">AI-powered, voice-first platform for creating, deploying, and analyzing surveys. Unparalleled insight extraction from spoken responses at scale.</p>
-      <div class="card-tags">
-        <span class="card-tag">Market Research</span>
-        <span class="card-tag">Voice AI</span>
-        <span class="card-tag">Analytics</span>
+  <!-- MODALS SYSTEM: APP ACCORDIONS -->
+  
+  <!-- MODAL 1: Workflow & Productivity -->
+  <div class="modal-overlay" id="modal-productivity">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button class="modal-close" onclick="closeModals()">✕</button>
+        <div class="modal-category">Vertical Suite</div>
+        <h3>Enterprise Workflow & Productivity</h3>
       </div>
-      <a href="https://vocally.base44.app" target="_blank" class="card-link">Visit app →</a>
-    </div>
+      <div class="modal-body">
+        
+        <!-- Sub-App 1 -->
+        <div class="sub-card active" onclick="toggleSubCard(this)">
+          <div class="sub-card-header">🎙️ Voicify: Enterprise Voice OS</div>
+          <div class="sub-card-content">
+            <p class="sub-card-desc"><strong>Brief:</strong> An enterprise voice-first daily organizer that translates unstructured spoken audio into structured, deployable operational data.</p>
+            <p class="sub-card-desc"><strong>Business Impact:</strong> Eliminates administrative bloat. Reclaims hours of deep work per user by automating data entry, ensuring 100% action-item capture accuracy, and seamlessly pushing extracted events to native calendar and CRM APIs.</p>
+            <div class="spec-grid">
+              <div class="spec-box">
+                <h5>⚙️ API & Infrastructure Stack</h5>
+                <p><strong>AssemblyAI / OpenAI Whisper</strong> (Transcription), <strong>Anthropic Claude 3 Opus</strong> (Semantic Processing), <strong>Supabase</strong> (Vector DB & Auth).</p>
+              </div>
+              <div class="spec-box">
+                <h5>🚀 Architecture & Optimization</h5>
+                <p>Utilizes advanced Prompt-Chaining to accurately extract isolated calendar events and tasks from conversational tangents, paired with a Supabase Vector integration for historical note retrieval.</p>
+              </div>
+            </div>
+          </div>
+        </div>
 
-    <div class="project-card card-jobmatch">
-      <div class="card-icon icon-jobmatch">📄</div>
-      <div class="card-badge badge-ai">AI Tool</div>
-      <div class="card-title">JobMatch AI</div>
-      <p class="card-desc">Resume optimizer that creates ATS-friendly, truthful resumes tailored to specific job descriptions. Analyzes keyword alignment and experience gaps instantly.</p>
-      <div class="card-tags">
-        <span class="card-tag">HRTech</span>
-        <span class="card-tag">ATS</span>
-        <span class="card-tag">Resume AI</span>
+        <!-- Sub-App 2 -->
+        <div class="sub-card" onclick="toggleSubCard(this)">
+          <div class="sub-card-header">⏱️ Minutely AI: Meeting Intelligence</div>
+          <div class="sub-card-content">
+            <p class="sub-card-desc"><strong>Brief:</strong> An AI-powered meeting assistant that automatically records, transcribes, and extracts actionable insights from Zoom, Teams, and Google Meet calls.</p>
+            <p class="sub-card-desc"><strong>Business Impact:</strong> Eradicates meeting bloat. Allows team members to skip non-essential calls while remaining aligned. Automatically generates and distributes stakeholder summaries and distinct action items.</p>
+            <div class="spec-grid">
+              <div class="spec-box">
+                <h5>⚙️ API & Infrastructure Stack</h5>
+                <p><strong>Recall.ai Webhooks</strong> (Meeting Bot Infrastructure), <strong>AssemblyAI</strong> (Diarization), <strong>OpenAI GPT-4 Turbo</strong>, <strong>SendGrid API</strong> (Distribution).</p>
+              </div>
+              <div class="spec-box">
+                <h5>🚀 Architecture & Optimization</h5>
+                <p>Features complex speaker diarization models and temporal mapping via Recall.ai to accurately attribute specific directives to the correct human operators during multi-party corporate calls.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Sub-App 3 -->
+        <div class="sub-card" onclick="toggleSubCard(this)">
+          <div class="sub-card-header">📊 Vocalize Surveys: Insight Engine</div>
+          <div class="sub-card-content">
+            <p class="sub-card-desc"><strong>Brief:</strong> A scalable, voice-native AI survey platform engineered for high-volume qualitative data extraction and automated thematic sentiment analysis.</p>
+            <p class="sub-card-desc"><strong>Business Impact:</strong> Frictionless input leads to deeper truths. Overcomes survey fatigue by allowing voice responses, drastically increasing completion rates and capturing nuanced emotional sentiment.</p>
+            <div class="spec-grid">
+              <div class="spec-box">
+                <h5>⚙️ API & Infrastructure Stack</h5>
+                <p><strong>ElevenLabs</strong> (Conversational TTS), <strong>Google Gemini API</strong> (Multimodal Data), <strong>AI33 API</strong>, <strong>Vercel</strong> (Edge Deployment).</p>
+              </div>
+              <div class="spec-box">
+                <h5>🚀 Architecture & Optimization</h5>
+                <p>Automated thematic clustering; the Gemini-powered backend ingests thousands of unstructured audio responses and dynamically categorizes them into defined, actionable business intelligence clusters.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Sub-App 4 -->
+        <div class="sub-card" onclick="toggleSubCard(this)">
+          <div class="sub-card-header">⚡ BoltShare: Secure Transfer</div>
+          <div class="sub-card-content">
+            <p class="sub-card-desc"><strong>Brief:</strong> The fastest, premium way to share files of any size with temporary, ultra-secure links.</p>
+            <p class="sub-card-desc"><strong>Business Impact:</strong> Eliminates fragmented corporate file-sharing limitations and security risks by generating self-destructing, high-throughput secure transfer links for massive enterprise files.</p>
+            <div class="spec-grid">
+              <div class="spec-box">
+                <h5>⚙️ API & Infrastructure Stack</h5>
+                <p><strong>Cloudflare R2</strong>, <strong>AWS S3 APIs</strong> (Multipart Uploads), <strong>Redis</strong> (TTL tokens), AES-256 Encryption.</p>
+              </div>
+              <div class="spec-box">
+                <h5>🚀 Architecture & Optimization</h5>
+                <p>Edge-routed upload and download streams bypass standard server bottlenecks, utilizing chunked parallel processing for multi-gigabyte files.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
       </div>
-      <a href="#" class="card-link">View project →</a>
-    </div>
-
-  </div>
-</section>
-
-<section id="services" class="services-section">
-  <div class="section-label">What I Offer</div>
-  <h2 class="section-title">How We Can Work Together</h2>
-  <p class="section-sub">Three ways to engage — from fast builds to strategic partnerships.</p>
-
-  <div class="services-grid">
-    <div class="service-card">
-      <div class="service-num">01</div>
-      <div class="service-title">Custom AI App Build</div>
-      <p class="service-desc">Need a working AI platform fast? I'll design, build, and ship a production-ready web app tailored to your business problem — in weeks, not quarters.</p>
-      <div class="service-price">From $3,000 per project</div>
-    </div>
-    <div class="service-card">
-      <div class="service-num">02</div>
-      <div class="service-title">AI Product Consulting</div>
-      <p class="service-desc">Strategic AI integration for your product or team. I bring both operator instincts and builder capability to help you move faster and smarter.</p>
-      <div class="service-price">$75–$150/hr · Retainers available</div>
-    </div>
-    <div class="service-card">
-      <div class="service-num">03</div>
-      <div class="service-title">White-Label Platforms</div>
-      <p class="service-desc">Want your own branded version of FinoraAI, Vocalize, or SnapSync? I can adapt and white-label existing platforms for your clients or business.</p>
-      <div class="service-price">Custom pricing</div>
     </div>
   </div>
-</section>
 
-<section id="skills" class="skills-section">
-  <div class="section-label">Toolkit</div>
-  <h2 class="section-title">What I Work With</h2>
-  <p class="section-sub">The tools and disciplines that power every build.</p>
+  <!-- MODAL 2: FinTech -->
+  <div class="modal-overlay" id="modal-fintech">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button class="modal-close" onclick="closeModals()">✕</button>
+        <div class="modal-category">Vertical Suite</div>
+        <h3>FinTech & Predictive Analytics</h3>
+      </div>
+      <div class="modal-body">
+        
+        <div class="sub-card active" onclick="toggleSubCard(this)">
+          <div class="sub-card-header">💹 FinoraAI: Financial OS</div>
+          <div class="sub-card-content">
+            <p class="sub-card-desc"><strong>Brief:</strong> A comprehensive, multi-tenant financial intelligence OS designed to unify expense tracking, document parsing, and predictive revenue modeling for SMEs.</p>
+            <p class="sub-card-desc"><strong>Business Impact:</strong> Replaces reactive bookkeeping with proactive alerts. Automatically reconciles expenses via document scanning, tracks budgetary health against dynamic parameters, and stabilizes cash flow.</p>
+            <div class="spec-grid">
+              <div class="spec-box">
+                <h5>⚙️ API & Infrastructure Stack</h5>
+                <p><strong>Plaid API</strong> (Banking), <strong>Alpha Vantage & Finnhub</strong> (Market Data), <strong>Twilio Verify</strong>, <strong>Stripe Webhooks</strong>, <strong>Anthropic Claude & Gemini APIs</strong>, <strong>OpenAI</strong>.</p>
+              </div>
+              <div class="spec-box">
+                <h5>🚀 Architecture & Optimization</h5>
+                <p>Utilizes strictly defined JSON-schema generation within Claude and Gemini prompts to extract perfect, structured ledger data from highly unstructured receipt images, securely linked via Plaid.</p>
+              </div>
+            </div>
+          </div>
+        </div>
 
-  <div class="skills-grid">
-    <div class="skill-card">
-      <div class="skill-icon">🤖</div>
-      <div class="skill-title">AI & LLMs</div>
-      <div class="skill-desc">Claude, GPT-4, prompt engineering, voice AI, NLP pipelines</div>
-    </div>
-    <div class="skill-card">
-      <div class="skill-icon">⚡</div>
-      <div class="skill-title">No-Code / Vibe-Code</div>
-      <div class="skill-desc">Base44, Bubble, Webflow, Claude Artifacts, rapid prototyping</div>
-    </div>
-    <div class="skill-card">
-      <div class="skill-icon">📦</div>
-      <div class="skill-title">Product Strategy</div>
-      <div class="skill-desc">MVP scoping, user flows, feature prioritization, GTM</div>
-    </div>
-    <div class="skill-card">
-      <div class="skill-icon">📣</div>
-      <div class="skill-title">Marketing & Ops</div>
-      <div class="skill-desc">Growth strategy, content, automation, business operations</div>
-    </div>
-    <div class="skill-card">
-      <div class="skill-icon">🏗️</div>
-      <div class="skill-title">System Design</div>
-      <div class="skill-desc">Multi-tenant architecture, data flows, scalable app structure</div>
-    </div>
-    <div class="skill-card">
-      <div class="skill-icon">💡</div>
-      <div class="skill-title">Verticals</div>
-      <div class="skill-desc">Fintech, events, health, HR tech, market research, social</div>
+        <div class="sub-card" onclick="toggleSubCard(this)">
+          <div class="sub-card-header">📈 TradeSense AI: Market Analysis</div>
+          <div class="sub-card-content">
+            <p class="sub-card-desc"><strong>Brief:</strong> An intelligent assistant for advanced forex and synthetic indices analysis, generating real-time market direction and actionable trade plans from uploaded charts.</p>
+            <p class="sub-card-desc"><strong>Business Impact:</strong> Removes emotional bias and analysis paralysis for retail traders and institutional analysts by providing rapid, data-backed synthesis of complex indicator snapshots.</p>
+            <div class="spec-grid">
+              <div class="spec-box">
+                <h5>⚙️ API & Infrastructure Stack</h5>
+                <p><strong>Claude 3 / GPT-4 Vision</strong>, <strong>RapidAPI</strong> (Live Market Data feeds), <strong>Railway</strong> (Backend Hosting).</p>
+              </div>
+              <div class="spec-box">
+                <h5>🚀 Architecture & Optimization</h5>
+                <p>Fast-inference vision processing fine-tuned to identify key liquidity levels, trendline breaks, and candlestick formations across multiple timeframes simultaneously.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
     </div>
   </div>
-</section>
 
-<section id="contact" class="cta-section">
-  <div class="section-label" style="text-align:center;">Let's Build</div>
-  <h2>Got a problem that needs an AI solution?</h2>
-  <p>I turn business problems into working platforms. Let's talk about what you're building.</p>
-  <div class="cta-actions">
-    <a href="mailto:tolu.adebisi@gmail.com" class="btn-primary">Email Me →</a>
-    <a href="https://linkedin.com" target="_blank" class="btn-secondary">LinkedIn</a>
+  <!-- MODAL 3: Experiential Tech -->
+  <div class="modal-overlay" id="modal-experiential">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button class="modal-close" onclick="closeModals()">✕</button>
+        <div class="modal-category">Vertical Suite</div>
+        <h3>Experiential Tech & Logistics</h3>
+      </div>
+      <div class="modal-body">
+        
+        <div class="sub-card active" onclick="toggleSubCard(this)">
+          <div class="sub-card-header">📸 SnapSync: Hardware-to-SaaS</div>
+          <div class="sub-card-content">
+            <p class="sub-card-desc"><strong>Brief:</strong> An end-to-end media ingestion and physical fulfillment engine bridging edge hardware (photobooths) with a cloud-based SaaS marketing platform.</p>
+            <p class="sub-card-desc"><strong>Business Impact:</strong> Delivers instant physical gratification while executing zero-friction digital lead capture. Radically increases post-event marketing opt-ins for brands compared to traditional QR-code methods.</p>
+            <div class="spec-grid">
+              <div class="spec-box">
+                <h5>⚙️ API & Infrastructure Stack</h5>
+                <p><strong>Cloudflare R2</strong> (Fast Storage), <strong>Cloudinary</strong>, <strong>Runway API</strong>, <strong>Freepik Webhooks</strong>, <strong>Twilio</strong> (SMS Delivery).</p>
+              </div>
+              <div class="spec-box">
+                <h5>🚀 Architecture & Optimization</h5>
+                <p>Latency-optimized image processing pipeline that compresses via Cloudinary and queues high-res imagery to physical printers onsite within milliseconds of capture.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="sub-card" onclick="toggleSubCard(this)">
+          <div class="sub-card-header">📱 WrapifyAI: Web-to-Native</div>
+          <div class="sub-card-content">
+            <p class="sub-card-desc"><strong>Brief:</strong> A no-code builder that transforms any existing website into a fully functional, native mobile app complete with push notifications and AdMob integration.</p>
+            <p class="sub-card-desc"><strong>Business Impact:</strong> Bypasses expensive and lengthy mobile development cycles, allowing retail brands and publishers to deploy to iOS and Android app stores in hours rather than months.</p>
+            <div class="spec-grid">
+              <div class="spec-box">
+                <h5>⚙️ API & Infrastructure Stack</h5>
+                <p><strong>Google AdMob</strong>, <strong>Firebase VAPID</strong> (Push Notifications), Automated DOM Parsing Pipelines.</p>
+              </div>
+              <div class="spec-box">
+                <h5>🚀 Architecture & Optimization</h5>
+                <p>Dynamic cloud-build exports using headless browser testing to ensure perfect mobile responsiveness and auto-injected native navigation scaffolding.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
   </div>
-</section>
+
+  <!-- MODAL 4: Media & Creator -->
+  <div class="modal-overlay" id="modal-media">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button class="modal-close" onclick="closeModals()">✕</button>
+        <div class="modal-category">Vertical Suite</div>
+        <h3>Content AI & Creator Economy</h3>
+      </div>
+      <div class="modal-body">
+        
+        <div class="sub-card active" onclick="toggleSubCard(this)">
+          <div class="sub-card-header">🎬 YouTube Content Engine</div>
+          <div class="sub-card-content">
+            <p class="sub-card-desc"><strong>Brief:</strong> An end-to-end AI platform that automates the creation of faceless YouTube videos, from niche selection and scriptwriting to voiceover and final render.</p>
+            <p class="sub-card-desc"><strong>Business Impact:</strong> Enables massive scalability in the creator economy. Reduces video production cycles from days to minutes, allowing rapid niche testing and channel monetization.</p>
+            <div class="spec-grid">
+              <div class="spec-box">
+                <h5>⚙️ API & Infrastructure Stack</h5>
+                <p><strong>Creatomate API</strong> (Video Render), <strong>ElevenLabs</strong> (TTS), <strong>Pexels / Pixabay APIs</strong> (Stock), <strong>YouTube Data API</strong>.</p>
+              </div>
+              <div class="spec-box">
+                <h5>🚀 Architecture & Optimization</h5>
+                <p>Automated temporal syncing. The system calculates exact audio clip durations to dynamically fetch and trim generative stock footage, ensuring perfect visual-to-audio timing without human editing.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="sub-card" onclick="toggleSubCard(this)">
+          <div class="sub-card-header">📱 Social Pilot AI: 90-Day Engine</div>
+          <div class="sub-card-content">
+            <p class="sub-card-desc"><strong>Brief:</strong> A high-performance content generation platform for brands to plan, write, and manage a multi-channel social media strategy at scale.</p>
+            <p class="sub-card-desc"><strong>Business Impact:</strong> Allows lean marketing teams or founders to maintain a consistent, expert-driven online presence, mimicking the output of an expensive marketing agency at a fraction of the cost.</p>
+            <div class="spec-grid">
+              <div class="spec-box">
+                <h5>⚙️ API & Infrastructure Stack</h5>
+                <p><strong>n8n</strong> (Workflow Automation), <strong>Anthropic Claude API</strong>, <strong>Meta Graph API</strong>, <strong>Twitter API</strong>, <strong>Kling / Minimax APIs</strong>.</p>
+              </div>
+              <div class="spec-box">
+                <h5>🚀 Architecture & Optimization</h5>
+                <p>Employs deep System Prompt engineering and few-shot learning to ensure the AI perfectly replicates specific brand voices across n8n-automated publishing pipelines.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="sub-card" onclick="toggleSubCard(this)">
+          <div class="sub-card-header">🎧 Podcast Scholar: Deep Listening</div>
+          <div class="sub-card-content">
+            <p class="sub-card-desc"><strong>Brief:</strong> An intelligent companion that imports, transcribes, and analyzes multi-hour podcast episodes into actionable notes, key quotes, and interactive insights.</p>
+            <p class="sub-card-desc"><strong>Business Impact:</strong> Maximizes the ROI of content consumption. Transforms passive listening into an active, searchable knowledge base for researchers, students, and professionals.</p>
+            <div class="spec-grid">
+              <div class="spec-box">
+                <h5>⚙️ API & Infrastructure Stack</h5>
+                <p><strong>Podcast Index API</strong>, <strong>YouTube Transcript API</strong>, <strong>AssemblyAI</strong>, <strong>Supabase</strong> (RAG Storage).</p>
+              </div>
+              <div class="spec-box">
+                <h5>🚀 Architecture & Optimization</h5>
+                <p>Advanced context-window management. Splits massive, multi-hour audio transcripts into overlapping semantic vectors so the LLM can generate accurate summaries without hitting token limits.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Sub-App 4 -->
+        <div class="sub-card" onclick="toggleSubCard(this)">
+          <div class="sub-card-header">💡 Lumen AI: Video Summarization</div>
+          <div class="sub-card-content">
+            <p class="sub-card-desc"><strong>Brief:</strong> An AI-powered assistant that instantly turns YouTube videos into concise, actionable summaries and searchable insights.</p>
+            <p class="sub-card-desc"><strong>Business Impact:</strong> Drastically reduces research time for content teams and analysts by converting long-form video content into structured, indexable knowledge bases.</p>
+            <div class="spec-grid">
+              <div class="spec-box">
+                <h5>⚙️ API & Infrastructure Stack</h5>
+                <p><strong>YouTube API</strong>, <strong>Anthropic Claude 3 API</strong>, <strong>Pinecone/Supabase Vector</strong>.</p>
+              </div>
+              <div class="spec-box">
+                <h5>🚀 Architecture & Optimization</h5>
+                <p>RAG-based semantic search across thousands of video transcripts in milliseconds, bypassing the need to watch long content to find specific data points.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- MODAL 5: HR Tech -->
+  <div class="modal-overlay" id="modal-hr">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button class="modal-close" onclick="closeModals()">✕</button>
+        <div class="modal-category">Vertical Suite</div>
+        <h3>HR Tech & Human Capital</h3>
+      </div>
+      <div class="modal-body">
+        
+        <div class="sub-card active" onclick="toggleSubCard(this)">
+          <div class="sub-card-header">📄 JobMatch AI: Systems Auditing</div>
+          <div class="sub-card-content">
+            <p class="sub-card-desc"><strong>Brief:</strong> An algorithmic document analysis protocol that dynamically audits and restructures candidate resumes against strict Applicant Tracking System (ATS) parsing parameters.</p>
+            <p class="sub-card-desc"><strong>Business Impact:</strong> Fixes the broken top-of-funnel in talent acquisition. Ensures highly qualified candidates are not discarded by rigid corporate algorithms due to poor keyword taxonomy, drastically improving interview shortlist rates.</p>
+            <div class="spec-grid">
+              <div class="spec-box">
+                <h5>⚙️ API & Infrastructure Stack</h5>
+                <p><strong>Apify API</strong> (Job Board Scraping), <strong>Cobalt API</strong>, <strong>Grok / OpenAI APIs</strong> (Parsing Engines), <strong>Stripe Billing</strong>.</p>
+              </div>
+              <div class="spec-box">
+                <h5>🚀 Architecture & Optimization</h5>
+                <p>Reverse-engineered ATS logic applied via stringent LLM formatting rules, instantly highlighting critical experience gaps between a resume and dynamically scraped Job Descriptions.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="sub-card" onclick="toggleSubCard(this)">
+          <div class="sub-card-header">🤝 Prepr AI: Interview Companion</div>
+          <div class="sub-card-content">
+            <p class="sub-card-desc"><strong>Brief:</strong> An AI-powered coaching tool that masters a user's resume and target job description to generate highly tailored, role-specific interview scenarios and real-time feedback.</p>
+            <p class="sub-card-desc"><strong>Business Impact:</strong> Democratizes executive-level career coaching. Prepares candidates with targeted, high-pressure conversational scenarios to guarantee peak performance during actual hiring stages.</p>
+            <div class="spec-grid">
+              <div class="spec-box">
+                <h5>⚙️ API & Infrastructure Stack</h5>
+                <p><strong>Inworld API</strong> (Conversational AI Agents), <strong>KIE API</strong>, <strong>ElevenLabs</strong> (Low-latency TTS), <strong>Vercel Edge Functions</strong>.</p>
+              </div>
+              <div class="spec-box">
+                <h5>🚀 Architecture & Optimization</h5>
+                <p>Real-time feedback loop processing using low-latency LLM streaming to evaluate candidate answers dynamically against industry-standard STAR (Situation, Task, Action, Result) methodologies.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- MODAL 6: EdTech & Consumer AI -->
+  <div class="modal-overlay" id="modal-edtech">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button class="modal-close" onclick="closeModals()">✕</button>
+        <div class="modal-category" style="color: #c48cf5;">Vertical Suite</div>
+        <h3>EdTech & Consumer AI</h3>
+      </div>
+      <div class="modal-body">
+        
+        <div class="sub-card active" onclick="toggleSubCard(this)">
+          <div class="sub-card-header">📚 StudyBuddy: Interactive Learning</div>
+          <div class="sub-card-content">
+            <p class="sub-card-desc"><strong>Brief:</strong> An AI-powered study companion that instantly transforms lectures, videos, and documents into interactive flashcards, quizzes, and mind maps.</p>
+            <p class="sub-card-desc"><strong>Business Impact:</strong> Accelerates learning curves and retains institutional knowledge by gamifying and structuring passive educational content into active testing materials.</p>
+            <div class="spec-grid">
+              <div class="spec-box">
+                <h5>⚙️ API & Infrastructure Stack</h5>
+                <p><strong>AssemblyAI</strong> (Lecture Transcription), <strong>OpenAI GPT-4o</strong>, <strong>Stripe API</strong> (Subscriptions).</p>
+              </div>
+              <div class="spec-box">
+                <h5>🚀 Architecture & Optimization</h5>
+                <p>Automated spaced-repetition algorithms driven by LLM confidence scoring to generate personalized study paths dynamically.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="sub-card" onclick="toggleSubCard(this)">
+          <div class="sub-card-header">🧠 Brain Tug: Multiplayer STEM</div>
+          <div class="sub-card-content">
+            <p class="sub-card-desc"><strong>Brief:</strong> A real-time multiplayer STEM battle game where players compete in knowledge-based challenges to pull a virtual rope to victory.</p>
+            <p class="sub-card-desc"><strong>Business Impact:</strong> Drives intense user engagement in EdTech environments through low-latency gamification and AI-generated dynamic STEM curriculum generation.</p>
+            <div class="spec-grid">
+              <div class="spec-box">
+                <h5>⚙️ API & Infrastructure Stack</h5>
+                <p><strong>WebSockets / Socket.io</strong>, <strong>Grok / GPT-4</strong> (Question Gen), <strong>Redis</strong> (Real-time State).</p>
+              </div>
+              <div class="spec-box">
+                <h5>🚀 Architecture & Optimization</h5>
+                <p>Zero-latency real-time multiplayer sync combined with on-the-fly difficulty adjustments via AI heuristic analysis.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="sub-card" onclick="toggleSubCard(this)">
+          <div class="sub-card-header">🥗 HiHealthAI: Culturally-Aware Wellness</div>
+          <div class="sub-card-content">
+            <p class="sub-card-desc"><strong>Brief:</strong> A culturally-aware health and nutrition companion personalizing meals, workouts, and grocery lists to a user's unique background and budget.</p>
+            <p class="sub-card-desc"><strong>Business Impact:</strong> Bridges the gap in generalized health tech by leveraging demographic-specific parameters to provide highly localized, culturally relevant wellness plans.</p>
+            <div class="spec-grid">
+              <div class="spec-box">
+                <h5>⚙️ API & Infrastructure Stack</h5>
+                <p><strong>Nutrition/Recipe APIs</strong>, <strong>Anthropic Claude 3</strong> (Nuanced Cultural Reasoning), <strong>Firebase</strong>.</p>
+              </div>
+              <div class="spec-box">
+                <h5>🚀 Architecture & Optimization</h5>
+                <p>RAG architecture integrated with regional grocery databases and localized price APIs to build actionable, budget-conscious meal plans.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- --- NEW ECOSYSTEM SECTION --- -->
+  <section id="ecosystem" class="ecosystem-section">
+    <div class="container">
+      <div class="section-label reveal">Technical Arsenal</div>
+      <h2 class="section-title reveal">Integration Ecosystem</h2>
+      <p class="section-sub reveal">A comprehensive look at the foundation models, cloud infrastructure, and third-party APIs I utilize to engineer scalable, enterprise-grade AI architectures.</p>
+
+      <div class="ecosystem-grid">
+        
+        <div class="ecosystem-card reveal">
+          <h3>🧠 Foundation Models & LLMs</h3>
+          <div class="tech-pills">
+            <span class="tech-pill">Anthropic Claude</span>
+            <span class="tech-pill">Google Gemini</span>
+            <span class="tech-pill">OpenAI GPT-4</span>
+            <span class="tech-pill">xAI Grok</span>
+            <span class="tech-pill">Minimax</span>
+            <span class="tech-pill">KIE</span>
+            <span class="tech-pill">AI33</span>
+          </div>
+        </div>
+
+        <div class="ecosystem-card reveal">
+          <h3>🎙️ Media Generation & Audio AI</h3>
+          <div class="tech-pills">
+            <span class="tech-pill">ElevenLabs</span>
+            <span class="tech-pill">AssemblyAI</span>
+            <span class="tech-pill">Runway Gen-2</span>
+            <span class="tech-pill">Kling AI</span>
+            <span class="tech-pill">Inworld AI</span>
+            <span class="tech-pill">Creatomate</span>
+            <span class="tech-pill">Freepik API</span>
+          </div>
+        </div>
+
+        <div class="ecosystem-card reveal">
+          <h3>☁️ Cloud & Edge Infrastructure</h3>
+          <div class="tech-pills">
+            <span class="tech-pill">Cloudflare R2</span>
+            <span class="tech-pill">Supabase Vector</span>
+            <span class="tech-pill">Vercel Edge</span>
+            <span class="tech-pill">Railway</span>
+            <span class="tech-pill">Firebase Auth/DB</span>
+            <span class="tech-pill">Cloudinary</span>
+            <span class="tech-pill">AWS S3 APIs</span>
+          </div>
+        </div>
+
+        <div class="ecosystem-card reveal">
+          <h3>🔄 Data Extraction & Automation</h3>
+          <div class="tech-pills">
+            <span class="tech-pill">n8n Workflows</span>
+            <span class="tech-pill">Recall.ai Webhooks</span>
+            <span class="tech-pill">Plaid API</span>
+            <span class="tech-pill">Alpha Vantage</span>
+            <span class="tech-pill">Finnhub</span>
+            <span class="tech-pill">Apify</span>
+            <span class="tech-pill">RapidAPI</span>
+            <span class="tech-pill">Cobalt API</span>
+            <span class="tech-pill">YouTube Data API</span>
+            <span class="tech-pill">Podcast Index API</span>
+          </div>
+        </div>
+
+        <div class="ecosystem-card reveal">
+          <h3>💳 Monetization & Comms</h3>
+          <div class="tech-pills">
+            <span class="tech-pill">Stripe Billing/Webhooks</span>
+            <span class="tech-pill">Twilio Verify & SMS</span>
+            <span class="tech-pill">SendGrid</span>
+            <span class="tech-pill">Mailchimp</span>
+            <span class="tech-pill">Meta Graph API</span>
+            <span class="tech-pill">X (Twitter) API</span>
+            <span class="tech-pill">Google AdMob</span>
+            <span class="tech-pill">WebSockets / Socket.io</span>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+
+  <section id="services" class="services-section">
+    <div class="container">
+      <div class="section-label reveal">Engagement Models</div>
+      <h2 class="section-title reveal">Strategic Transformation Offerings</h2>
+      <p class="section-sub reveal">Partnering with organizations to architect their AI future, from board-level strategy to technical deployment.</p>
+
+      <div class="services-grid">
+        <article class="service-card reveal">
+          <div class="service-num">01</div>
+          <h3 class="service-title">AI Readiness & Strategy Consulting</h3>
+          <p class="service-desc">I audit your current operational infrastructure to identify high-ROI opportunities for AI integration, delivering a comprehensive roadmap for technological transformation and change management.</p>
+          <div class="service-price">Advisory Retainer</div>
+        </article>
+        <article class="service-card reveal">
+          <div class="service-num">02</div>
+          <h3 class="service-title">Process Optimization & Automation</h3>
+          <p class="service-desc">Transforming sluggish workflows into intelligent, automated pipelines. I implement LLMs and custom AI tooling to reduce operational overhead, eliminate bottlenecks, and scale your workforce.</p>
+          <div class="service-price">Project-Based Implementation</div>
+        </article>
+        <article class="service-card reveal">
+          <div class="service-num">03</div>
+          <h3 class="service-title">Custom AI Architecture Build</h3>
+          <p class="service-desc">For organizations requiring proprietary solutions. I lead the design, development, and secure deployment of enterprise-grade AI platforms tailored precisely to your specific business logic.</p>
+          <div class="service-price">Custom Scope & Timeline</div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section id="skills">
+    <div class="container">
+      <div class="section-label reveal">Core Competencies</div>
+      <h2 class="section-title reveal">The Transformation Toolkit</h2>
+      <p class="section-sub reveal">Combining high-level strategic oversight with the technical capability to execute.</p>
+
+      <div class="skills-grid">
+        <article class="skill-card reveal">
+          <div class="skill-icon">🧠</div>
+          <div class="skill-content">
+            <h3>AI Strategy & Governance</h3>
+            <p>Enterprise roadmap development, risk mitigation, and scalable integration planning.</p>
+          </div>
+        </article>
+        <article class="skill-card reveal">
+          <div class="skill-icon">⚡</div>
+          <div class="skill-content">
+            <h3>Process Optimization</h3>
+            <p>Workflow auditing, bottleneck elimination, and intelligent automation deployment.</p>
+          </div>
+        </article>
+        <article class="skill-card reveal">
+          <div class="skill-icon">🤖</div>
+          <div class="skill-content">
+            <h3>API Pipeline Architecture</h3>
+            <p>Seamlessly integrating complex third-party tools (Stripe, n8n, Twilio) with advanced LLM logic.</p>
+          </div>
+        </article>
+        <article class="skill-card reveal">
+          <div class="skill-icon">🔄</div>
+          <div class="skill-content">
+            <h3>Change Management</h3>
+            <p>Guiding teams through technological shifts, ensuring adoption and maximizing ROI.</p>
+          </div>
+        </article>
+        <article class="skill-card reveal">
+          <div class="skill-icon">🏗️</div>
+          <div class="skill-content">
+            <h3>Systems Architecture</h3>
+            <p>Designing secure, scalable, multi-tenant frameworks for data-heavy cloud operations.</p>
+          </div>
+        </article>
+        <article class="skill-card reveal">
+          <div class="skill-icon">📈</div>
+          <div class="skill-content">
+            <h3>Cross-Vertical Acumen</h3>
+            <p>Deep operational insight spanning FinTech, HR, Media, Logistics, and Enterprise SaaS.</p>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section id="contact" class="cta-section">
+    <div class="container">
+      <div class="section-label reveal">Initiate Transformation</div>
+      <h2 class="reveal">Ready to optimize your organization with AI?</h2>
+      <p class="reveal">Let’s discuss your operational bottlenecks and architect a strategy for scalable efficiency.</p>
+      <div class="cta-actions reveal">
+        <a href="https://calendly.com/tolu-t-adebisi/ai-integration-consultation" target="_blank" class="btn-primary">Schedule a Strategy Call →</a>
+        <a href="https://linkedin.com/in/toluadebisi" target="_blank" class="btn-secondary">Connect on LinkedIn</a>
+      </div>
+    </div>
+  </section>
+</main>
 
 <footer>
-  <div>© 2026 Tolu Adebisi · AI Product Builder</div>
-  <div class="footer-links">
-    <a href="https://myvoicify.app" target="_blank">Voicify</a>
-    <a href="https://finoraai.base44.app" target="_blank">FinoraAI</a>
-    <a href="https://vocally.base44.app" target="_blank">Vocalize</a>
-    <a href="mailto:tolu.adebisi@gmail.com">Email</a>
+  <div class="footer-inner">
+    <div>© 2026 Tolu Adebisi · AI Strategy & Integration Architect</div>
+    <div class="footer-links">
+      <a href="https://calendly.com/tolu-t-adebisi/ai-integration-consultation" target="_blank">Contact for Consultation</a>
+    </div>
   </div>
 </footer>
+
+<script>
+  // Scroll Reveal Animation Script
+  document.addEventListener('DOMContentLoaded', () => {
+    const reveals = document.querySelectorAll('.reveal');
+    const grids = document.querySelectorAll('.projects-grid, .services-grid, .skills-grid, .ecosystem-grid');
+    grids.forEach(grid => {
+      const children = grid.querySelectorAll('.reveal');
+      children.forEach((child, index) => {
+        child.style.transitionDelay = `${index * 0.1}s`;
+      });
+    });
+
+    const revealOnScroll = new IntersectionObserver((entries, observer) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('active');
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { root: null, threshold: 0.15, rootMargin: "0px 0px -50px 0px" });
+
+    reveals.forEach(reveal => revealOnScroll.observe(reveal));
+  });
+
+  // Modal Functionality
+  function openModal(modalId) {
+    document.getElementById(modalId).classList.add('active');
+    document.body.style.overflow = 'hidden'; // Prevent background scrolling
+  }
+
+  function closeModals() {
+    document.querySelectorAll('.modal-overlay').forEach(modal => {
+      modal.classList.remove('active');
+    });
+    document.body.style.overflow = ''; // Restore scrolling
+  }
+
+  // Close modal when clicking outside the content box
+  document.querySelectorAll('.modal-overlay').forEach(overlay => {
+    overlay.addEventListener('click', function(e) {
+      if (e.target === this) {
+        closeModals();
+      }
+    });
+  });
+  
+  // Close modal on escape key
+  document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape') {
+      closeModals();
+    }
+  });
+
+  // Sub-card Accordion Logic
+  function toggleSubCard(element) {
+    const isActive = element.classList.contains('active');
+    
+    // Close all other sub-cards within the same modal
+    const parentModal = element.closest('.modal-content');
+    parentModal.querySelectorAll('.sub-card').forEach(card => {
+      card.classList.remove('active');
+    });
+    
+    // Open the clicked one if it wasn't already open
+    if (!isActive) {
+      element.classList.add('active');
+    }
+  }
+</script>
 
 </body>
 </html>
